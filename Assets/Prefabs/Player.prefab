@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1018561248036536277}
+  - {fileID: 1687526554548079032}
   m_Father: {fileID: 7168467383412459221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8218815772115812837
@@ -189,8 +189,10 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
+  killHeight: -30
   visualRoot: {fileID: 6604568685025288007}
-  bodyRenderer: {fileID: 5846315454846029884}
+  bodyRenderer: {fileID: 5218454350282352209}
+  debugStateColors: 0
 --- !u!114 &81647915745675116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,9 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedceeb902a770845b1518941b2dd5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game01.PlayerAnimator
-  animator: {fileID: 8317378914572242192}
+  animator: {fileID: 7648414492270115709}
   runThreshold: 0.5
---- !u!1001 &7167247707991064792
+  parryDisplayTime: 0.2
+--- !u!1001 &8808699653430769333
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -279,18 +282,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 829a784d7f5fab941adaaa3ff294f4c2, type: 3}
---- !u!4 &1018561248036536277 stripped
+--- !u!4 &1687526554548079032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 829a784d7f5fab941adaaa3ff294f4c2, type: 3}
-  m_PrefabInstance: {fileID: 7167247707991064792}
+  m_PrefabInstance: {fileID: 8808699653430769333}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &5846315454846029884 stripped
+--- !u!212 &5218454350282352209 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3626916397498700004, guid: 829a784d7f5fab941adaaa3ff294f4c2, type: 3}
-  m_PrefabInstance: {fileID: 7167247707991064792}
+  m_PrefabInstance: {fileID: 8808699653430769333}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &8317378914572242192 stripped
+--- !u!95 &7648414492270115709 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: 829a784d7f5fab941adaaa3ff294f4c2, type: 3}
-  m_PrefabInstance: {fileID: 7167247707991064792}
+  m_PrefabInstance: {fileID: 8808699653430769333}
   m_PrefabAsset: {fileID: 0}

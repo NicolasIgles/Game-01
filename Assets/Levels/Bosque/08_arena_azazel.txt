@@ -1,0 +1,23 @@
+nombre: Arena de Azazel
+origen: 390 -46
+fondo: cementerio
+efectos: fatuos, niebla
+jefe: si
+---
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RR..........................RR
+RR..........................RR
+RR..........................RR
+RR..........................RR
+RR..........................RR
+BB..........................RR
+BB..........................RR
+BB..........................RR
+BB....t............TZ....+..RR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR

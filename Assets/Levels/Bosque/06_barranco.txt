@@ -1,0 +1,51 @@
+nombre: El Barranco
+origen: 300 -46
+fondo: bosque
+efectos: ceniza, fatuos, niebla
+---
+RRRRRRRRRRRR......RRRRRRRRRRRR
+RRRR......................RRRR
+RRRR........EE............RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR...........EE.........RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR........EE..........l.RRRR
+RRRR..............RRRRRRRRRRRR
+RRRR..............RRRRRRRRRRRR
+RRRR...........EE.........RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR........EE............RRRR
+RRRR....f.................RRRR
+RRRRRRRRRRR...............RRRR
+RRRRRRRRRRR....EE.........RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR........EE............RRRR
+RRRR......................RRRR
+RRRR.................f....RRRR
+RRRR...........EE.RRRRRRRRRRRR
+RRRR..............RRRRRRRRRRRR
+RRRR......................RRRR
+RRRR........EE............RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR...........EE.........RRRR
+RRRR......................RRRR
+RRRRRRRRRRR...............RRRR
+RRRRRRRRRRR.EE............RRRR
+RRRR......................RRRR
+RRRR......................RRRR
+RRRR...........EE.........RRRR
+RRRR..........................
+RRRR..........................
+RRRR........EE................
+RRRR..........................
+RRRR...L......................
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR

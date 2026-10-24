@@ -19,6 +19,8 @@ namespace Game01
         [SerializeField] BoxCollider2D bodyCollider;
         [SerializeField] LayerMask groundMask;
         [SerializeField] LayerMask enemyMask;
+        [Tooltip("Por debajo de esta altura el jugador muere (cayó fuera del mapa).")]
+        [SerializeField] float killHeight = -30f;
 
         [Header("Visual")]
         [Tooltip("Se espeja según hacia dónde mira el personaje.")]
@@ -102,7 +104,7 @@ namespace Game01
                 case State.Dead: UpdateDead(); break;
             }
 
-            if (transform.position.y < -30f && Current != State.Dead)
+            if (transform.position.y < killHeight && Current != State.Dead)
                 Die();
 
             input.Tick(dt);
@@ -350,6 +352,12 @@ namespace Game01
         }
 
         public void SetSpawnPoint(Vector3 position) => spawnPoint = position;
+
+        public float KillHeight
+        {
+            get => killHeight;
+            set => killHeight = value;
+        }
 
         // ---------------------------------------------------------------- utilidades
 

@@ -633,6 +633,7 @@ MonoBehaviour:
   offset: {x: 0, y: 2}
   lookAhead: 2
   smoothTime: 0.15
+  rooms: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
