@@ -51,6 +51,13 @@ namespace Game01
         public event Action Blocked;
         /// <summary>Después de morir y reaparecer. Los enemigos lo usan para volver a su lugar.</summary>
         public event Action Respawned;
+        public event Action Jumped;
+        /// <summary>Al tocar el piso, con la velocidad de caída que traía.</summary>
+        public event Action<float> Landed;
+        /// <summary>Recibió daño (de enemigos o trampas), con la cantidad.</summary>
+        public event Action<int> Damaged;
+        /// <summary>La curación terminó de canalizarse y recuperó vida.</summary>
+        public event Action HealApplied;
 
         Rigidbody2D rb;
         Health health;
@@ -66,6 +73,7 @@ namespace Game01
         bool parryWindowOpen;
         bool comboQueued;
         bool healApplied;
+        float lastFallSpeed;
         Vector3 spawnPoint;
         readonly HashSet<IDamageable> hitThisSwing = new();
 
@@ -108,6 +116,7 @@ namespace Game01
                 Die();
 
             input.Tick(dt);
+            lastFallSpeed = Mathf.Max(0f, -rb.linearVelocity.y);
             UpdatePlaceholderVisual();
         }
 
@@ -129,6 +138,7 @@ namespace Game01
                 coyoteTimer = 0f;
                 jumpCutAvailable = true;
                 IsGrounded = false;
+                Jumped?.Invoke();
             }
             if (jumpCutAvailable && !input.JumpHeld && v.y > 0f)
             {
@@ -268,6 +278,7 @@ namespace Game01
             {
                 health.Heal(stats.healAmount);
                 healApplied = true;
+                HealApplied?.Invoke();
             }
             if (stateTimer >= stats.healCastTime + stats.healRecovery)
                 SetState(State.Normal);
@@ -332,6 +343,7 @@ namespace Game01
             }
 
             health.TakeDamage(hit.Damage);
+            Damaged?.Invoke(hit.Damage);
             if (health.IsDead)
             {
                 Die();
@@ -387,7 +399,10 @@ namespace Game01
             var bounds = bodyCollider.bounds;
             var center = new Vector2(bounds.center.x, bounds.min.y - 0.05f);
             var size = new Vector2(bounds.size.x * 0.9f, 0.1f);
+            bool wasGrounded = IsGrounded;
             IsGrounded = rb.linearVelocity.y <= 0.01f && Physics2D.OverlapBox(center, size, 0f, groundMask) != null;
+            if (IsGrounded && !wasGrounded)
+                Landed?.Invoke(lastFallSpeed);
             if (IsGrounded)
             {
                 coyoteTimer = stats.coyoteTime;

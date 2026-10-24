@@ -52,7 +52,9 @@ namespace Game01
                 var target = col.GetComponentInParent<IDamageable>();
                 if (target == null || ReferenceEquals(target, self) || !alreadyHit.Add(target))
                     continue;
-                target.ReceiveHit(hit);
+                var result = target.ReceiveHit(hit);
+                if (result != HitResult.Ignored)
+                    CombatEvents.RaiseHit(target, result, hit);
             }
         }
 

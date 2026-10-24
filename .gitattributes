@@ -105,7 +105,7 @@ Packages/packages-lock.json linguist-generated
 *.mp3                   lfs
 *.ogg                   lfs
 *.s3m                   lfs
-*.wav                   lfs
+*.wav                   binary
 *.xm                    lfs
 
 # Video
@@ -170,6 +170,7 @@ Packages/packages-lock.json linguist-generated
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
 
-# Arte de pixel art: archivos chicos, se versionan sin LFS.
+# Arte de pixel art y efectos de sonido cortos: archivos chicos, se versionan sin LFS.
+# La música va en .ogg/.mp3, que siguen en LFS.
 *.aseprite              binary
 *.ase                   binary

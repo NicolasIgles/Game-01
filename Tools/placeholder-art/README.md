@@ -45,6 +45,14 @@ la Caída. Lienzo de 64×48, cuerpo encorvado de ~28 px, pies en la fila 47.
 Los tiempos del ataque y del daño tienen que coincidir con
 `Assets/Data/Enemies/GhoulStats`.
 
+## Efectos de sonido (`make_sfx.py`)
+
+Sintetiza 14 efectos provisorios en `Assets/Audio/SFX` (WAV mono 44.1 kHz):
+swing, hit, hurt, block, parry, dash, jump, land, heal_start, heal,
+enemy_windup, enemy_windup_unblockable, enemy_death y player_death. Necesita
+numpy. Para reemplazar uno por el definitivo, se guarda con el mismo nombre;
+Unity lo asigna solo en `Assets/Resources/Feedback/FeedbackSettings`.
+
 ## Regenerar
 
 Necesita Python 3 y Pillow. `pixeldraw.py` tiene las utilidades de dibujo
@@ -52,3 +60,4 @@ compartidas y `aseprite_writer.py` escribe el formato .aseprite.
 
     python make_player.py ../../Assets/Art/Characters/Player
     python make_ghoul.py ../../Assets/Art/Enemies/Ghoul
+    python make_sfx.py ../../Assets/Audio/SFX

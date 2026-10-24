@@ -79,6 +79,7 @@ namespace Game01
                         attackCount++;
                         currentUnblockable = unblockableEvery > 0 && attackCount % unblockableEvery == 0;
                         SetPhase(Phase.Windup);
+                        CombatEvents.RaiseEnemyWindup((Vector2)transform.position + Vector2.up * 2f, currentUnblockable);
                     }
                     break;
                 case Phase.Windup:
@@ -109,7 +110,10 @@ namespace Game01
             health.TakeDamage(Mathf.RoundToInt(hit.Damage * multiplier));
             hurtFlash = 0.08f;
             if (health.IsDead)
+            {
                 SetPhase(Phase.Dead);
+                CombatEvents.RaiseEnemyDied((Vector2)transform.position + Vector2.up);
+            }
             return HitResult.Hit;
         }
 

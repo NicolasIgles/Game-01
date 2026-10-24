@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3852339b89ce77f4b8c3315954b098e0, type: 3}
+  m_Name: FeedbackSettings
+  m_EditorClassIdentifier: Assembly-CSharp::Game01.FeedbackSettings
+  masterVolume: 0.8
+  fullVolumeDistance: 10
+  silentDistance: 22
+  sounds:
+  - id: 0
+    clip: {fileID: 8300000, guid: 1c987804c86561545a7a205694c5f66c, type: 3}
+    volume: 0.6
+    pitchVariance: 0.05
+  - id: 1
+    clip: {fileID: 8300000, guid: 149583fa43d875d46a04f010f688092d, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 2
+    clip: {fileID: 8300000, guid: a3e0968be4e10e04b9feb46d9a5209e5, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 3
+    clip: {fileID: 8300000, guid: 475ea67794f523b44968c6bbe38ffe5d, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 4
+    clip: {fileID: 8300000, guid: 9959f240f9fc6b946bbbde6de2889bd6, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 5
+    clip: {fileID: 8300000, guid: e4f651088d64da24a932ca174165a1f1, type: 3}
+    volume: 0.6
+    pitchVariance: 0.05
+  - id: 6
+    clip: {fileID: 8300000, guid: 27cb0dbcee56ba346a3e99cfc10fc7ce, type: 3}
+    volume: 0.45
+    pitchVariance: 0.05
+  - id: 7
+    clip: {fileID: 8300000, guid: 2e336875a5916fc4d90b032206c7b34d, type: 3}
+    volume: 0.6
+    pitchVariance: 0.05
+  - id: 8
+    clip: {fileID: 8300000, guid: 344488f87de83a049a085f1d16495899, type: 3}
+    volume: 0.6
+    pitchVariance: 0.05
+  - id: 9
+    clip: {fileID: 8300000, guid: e790ccbeb2b2e4343849ee4278253847, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 10
+    clip: {fileID: 8300000, guid: 564d29c51d344974cad4bb8109a5604d, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 11
+    clip: {fileID: 8300000, guid: 76ee6dd9a00f161469ee654f06e1dd1e, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 12
+    clip: {fileID: 8300000, guid: 6951b602575dbb04b9f4be91a3af02cc, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 13
+    clip: {fileID: 8300000, guid: 98b70fcb0acc5c34181b83cc1fbdcd58, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  hitStopHit: 0.05
+  hitStopHurt: 0.09
+  hitStopBlock: 0.03
+  hitStopParry: 0.12
+  hitStopEnemyDeath: 0.07
+  maxShakeOffset: 0.25
+  shakeDecay: 2.5
+  shakeHit: 0.2
+  shakeHurt: 0.45
+  shakeBlock: 0.12
+  shakeParry: 0.35
+  shakeEnemyDeath: 0.3
+  shakeHardLanding: 0.15
+  landingSoundSpeed: 4
+  hardLandingSpeed: 18

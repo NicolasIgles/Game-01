@@ -166,6 +166,7 @@ namespace Game01
             attackCount++;
             CurrentAttackUnblockable = stats.unblockableEvery > 0 && attackCount % stats.unblockableEvery == 0;
             SetState(State.Windup);
+            CombatEvents.RaiseEnemyWindup((Vector2)transform.position + Vector2.up * stats.eyeHeight, CurrentAttackUnblockable);
         }
 
         void UpdateWindup(float dt)
@@ -249,6 +250,7 @@ namespace Game01
             rb.bodyType = RigidbodyType2D.Kinematic;
             bodyCollider.enabled = false;
             SetState(State.Dead);
+            CombatEvents.RaiseEnemyDied((Vector2)transform.position + Vector2.up);
         }
 
         /// <summary>Vuelve a su lugar con la vida llena (al reaparecer el jugador).</summary>

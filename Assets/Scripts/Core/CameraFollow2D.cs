@@ -22,6 +22,7 @@ namespace Game01
 
         PlayerController player;
         Vector3 velocity;
+        Vector3 followPosition;
         float currentLookAhead;
 
         public void SetTarget(Transform newTarget)
@@ -30,7 +31,11 @@ namespace Game01
             player = target != null ? target.GetComponent<PlayerController>() : null;
         }
 
-        void Start() => SetTarget(target);
+        void Start()
+        {
+            followPosition = transform.position;
+            SetTarget(target);
+        }
 
         void LateUpdate()
         {
@@ -45,7 +50,12 @@ namespace Game01
                 Vector2 clamped = rooms.ClampCamera(goal, HalfView);
                 goal = new Vector3(clamped.x, clamped.y, goal.z);
             }
-            transform.position = Vector3.SmoothDamp(transform.position, goal, ref velocity, smoothTime);
+            // El temblor se suma después del suavizado para no contaminar el seguimiento,
+            // y se redondea a píxeles enteros para que la imagen no tiemble a medio píxel.
+            followPosition = Vector3.SmoothDamp(followPosition, goal, ref velocity, smoothTime);
+            Vector2 shake = GameFeel.ShakeOffset;
+            float ppu = PixelArtSettings.PixelsPerUnit;
+            transform.position = followPosition + new Vector3(Mathf.Round(shake.x * ppu) / ppu, Mathf.Round(shake.y * ppu) / ppu, 0f);
         }
     }
 }
