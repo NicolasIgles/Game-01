@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2254a85e28272b447a436618885bc648, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: Assembly-CSharp::Game01.PlayerStats
+  maxHealth: 100
+  hurtInvulnerability: 0.8
+  hurtStunTime: 0.3
+  hurtKnockback: {x: 6, y: 6}
+  respawnDelay: 1.2
+  runSpeed: 7.5
+  groundAcceleration: 80
+  airAcceleration: 50
+  jumpHeight: 3.5
+  timeToApex: 0.38
+  fallGravityMultiplier: 1.7
+  maxFallSpeed: 22
+  jumpCutMultiplier: 0.5
+  coyoteTime: 0.1
+  inputBuffer: 0.12
+  dashSpeed: 20
+  dashDuration: 0.16
+  dashInvulnerableFrom: 0.02
+  dashInvulnerableTo: 0.14
+  dashCooldown: 0.35
+  comboLength: 2
+  attackWindup: 0.07
+  attackActive: 0.08
+  attackRecovery: 0.25
+  attackDamage: 10
+  attackLunge: 3
+  attackKnockback: 4
+  attackSize: {x: 1.75, y: 1.5}
+  attackOffset: {x: 1.1, y: 1.4}
+  parryWindow: 0.15
+  parryCooldown: 0.35
+  minBlockTime: 0.15
+  blockPushback: 4
+  parryInvulnerability: 0.3
+  healCharges: 3
+  healAmount: 35
+  healCastTime: 0.6
+  healRecovery: 0.2
