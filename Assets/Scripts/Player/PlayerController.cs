@@ -20,10 +20,12 @@ namespace Game01
         [SerializeField] LayerMask groundMask;
         [SerializeField] LayerMask enemyMask;
 
-        [Header("Placeholder visual")]
+        [Header("Visual")]
         [Tooltip("Se espeja según hacia dónde mira el personaje.")]
         [SerializeField] Transform visualRoot;
         [SerializeField] SpriteRenderer bodyRenderer;
+        [Tooltip("Tiñe el sprite según el estado (anticipación, golpe activo, ventana de parry...). Útil para ajustar el combate.")]
+        [SerializeField] bool debugStateColors;
 
         public State Current { get; private set; }
         public int Facing { get; private set; } = 1;
@@ -392,7 +394,7 @@ namespace Game01
         Vector2 AttackCenter() =>
             (Vector2)transform.position + new Vector2(stats.attackOffset.x * Facing, stats.attackOffset.y);
 
-        // ---------------------------------------------------------------- placeholder
+        // ---------------------------------------------------------------- visual
 
         static readonly Color ColorNormal = Color.white;
         static readonly Color ColorDash = new(0.25f, 0.82f, 1f);
@@ -412,7 +414,7 @@ namespace Game01
             if (bodyRenderer == null)
                 return;
 
-            Color c = Current switch
+            Color c = !debugStateColors ? (Current == State.Hurt ? ColorHurt : Color.white) : Current switch
             {
                 State.Dash => ColorDash,
                 State.Attack => stateTimer < stats.attackWindup ? ColorWindup : AttackIsActive ? ColorActive : ColorRecovery,

@@ -19,7 +19,8 @@ def write_aseprite(path, width, height, layers, frames, tags, palette=None):
     """
     layers: lista de nombres (de abajo hacia arriba).
     frames: lista de dicts {"duration": ms, "cels": {layer_index: PIL.Image RGBA (w×h del canvas)}}
-    tags:   lista de (nombre, desde, hasta)
+    tags:   lista de (nombre, desde, hasta) o (nombre, desde, hasta, repeticiones);
+            repeticiones 0 = loop infinito (Unity marca el clip como Loop Time).
     palette: lista de (r, g, b, a) opcional, guardada como paleta del archivo.
     """
     body = b""
@@ -38,8 +39,10 @@ def write_aseprite(path, width, height, layers, frames, tags, palette=None):
                 chunks.append(_chunk(0x2004, data))
             if tags:
                 tdata = struct.pack("<H", len(tags)) + b"\0" * 8
-                for (name, start, end) in tags:
-                    tdata += struct.pack("<HHBH", start, end, 0, 0) + b"\0" * 6
+                for tag in tags:
+                    name, start, end = tag[:3]
+                    repeat = tag[3] if len(tag) > 3 else 0
+                    tdata += struct.pack("<HHBH", start, end, 0, repeat) + b"\0" * 6
                     tdata += b"\0\0\0" + b"\0" + _string(name)
                 chunks.append(_chunk(0x2018, tdata))
         for li in sorted(frame["cels"]):
