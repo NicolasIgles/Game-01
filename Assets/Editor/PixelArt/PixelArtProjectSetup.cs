@@ -115,7 +115,7 @@ namespace Game01.EditorTools
                 scene = EditorSceneManager.OpenScene(MainScenePath);
             }
 
-            var camera = Camera.main != null ? Camera.main : Object.FindFirstObjectByType<Camera>();
+            var camera = Camera.main != null ? Camera.main : Object.FindAnyObjectByType<Camera>();
             if (camera == null)
             {
                 Debug.LogError("[PixelArt] No encontré una cámara en " + scene.path);
