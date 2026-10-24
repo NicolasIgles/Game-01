@@ -62,13 +62,7 @@ namespace Game01.EditorTools
 
         static void BuildScene(Sprite sprite, int groundLayer, GameObject playerPrefab, GameObject dummyPrefab)
         {
-            AssetDatabase.DeleteAsset(ScenePath);
-            if (!AssetDatabase.CopyAsset(BaseScenePath, ScenePath))
-            {
-                Debug.LogError("[TestRoom] No pude copiar " + BaseScenePath);
-                return;
-            }
-            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            var scene = SceneFiles.ResetFromTemplate(BaseScenePath, ScenePath);
 
             var level = new GameObject("Level").transform;
             // Piso con un hueco para probar salto y dash.
@@ -103,7 +97,7 @@ namespace Game01.EditorTools
             }
 
             EditorSceneManager.SaveScene(scene);
-            AddToBuildSettings(ScenePath);
+            SceneFiles.EnsureInBuildSettings(ScenePath);
 
             void Block(string name, Vector2 center, Vector2 size)
             {
@@ -118,16 +112,6 @@ namespace Game01.EditorTools
                 var col = go.AddComponent<BoxCollider2D>();
                 col.size = size;
             }
-        }
-
-        static void AddToBuildSettings(string path)
-        {
-            var scenes = EditorBuildSettings.scenes;
-            foreach (var s in scenes)
-                if (s.path == path)
-                    return;
-            var list = new System.Collections.Generic.List<EditorBuildSettingsScene>(scenes) { new(path, true) };
-            EditorBuildSettings.scenes = list.ToArray();
         }
 
         // ------------------------------------------------------------ prefabs

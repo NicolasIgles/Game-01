@@ -32,6 +32,10 @@ namespace Game01
         public State Current { get; private set; }
         public int Facing { get; private set; } = 1;
         public bool IsGrounded { get; private set; }
+        /// <summary>En el aire, contra una pared y empujando hacia ella: cae despacio.</summary>
+        public bool IsWallSliding { get; private set; }
+        /// <summary>El salto de pared se desbloquea con fragmentos de gracia (ver PlayerStats).</summary>
+        public bool CanWallJump => stats.wallJumpRequiredFragments <= 0 || PlayerProgress.Fragments >= stats.wallJumpRequiredFragments;
         public int HealCharges { get; private set; }
         public PlayerStats Stats => stats;
 
@@ -52,6 +56,8 @@ namespace Game01
         /// <summary>Después de morir y reaparecer. Los enemigos lo usan para volver a su lugar.</summary>
         public event Action Respawned;
         public event Action Jumped;
+        /// <summary>Saltó desde una pared; el valor es de qué lado estaba la pared (-1 izquierda, 1 derecha).</summary>
+        public event Action<int> WallJumped;
         /// <summary>Al tocar el piso, con la velocidad de caída que traía.</summary>
         public event Action<float> Landed;
         /// <summary>Recibió daño (de enemigos o trampas), con la cantidad.</summary>
@@ -65,6 +71,9 @@ namespace Game01
 
         float stateTimer;
         float coyoteTimer;
+        float wallCoyoteTimer;
+        float wallJumpLockTimer;
+        int lastWallSide;
         float dashCooldownTimer;
         float invulnerableTimer;
         float lastParryTime = float.NegativeInfinity;
@@ -125,12 +134,30 @@ namespace Game01
         void UpdateNormal(float dt)
         {
             float x = HorizontalInput();
-            if (x != 0f)
+            // Justo después de un salto de pared el impulso manda: así el jugador
+            // se despega aunque siga empujando hacia la pared.
+            bool inputLocked = wallJumpLockTimer > 0f;
+            if (x != 0f && !inputLocked)
                 Facing = (int)x;
 
             var v = rb.linearVelocity;
             float accel = IsGrounded ? stats.groundAcceleration : stats.airAcceleration;
-            v.x = Mathf.MoveTowards(v.x, x * stats.runSpeed, accel * dt);
+            if (!inputLocked)
+                v.x = Mathf.MoveTowards(v.x, x * stats.runSpeed, accel * dt);
+
+            // Pared: se puede agarrar empujando hacia ella mientras cae.
+            int wallSide = !IsGrounded && CanWallJump ? WallSide() : 0;
+            if (wallSide != 0)
+            {
+                wallCoyoteTimer = stats.wallCoyoteTime;
+                lastWallSide = wallSide;
+            }
+            IsWallSliding = wallSide != 0 && !inputLocked && x == wallSide && v.y <= 0f;
+            if (IsWallSliding)
+            {
+                Facing = -wallSide; // de espaldas a la pared: el ataque y el dash salen hacia afuera
+                airDashAvailable = true;
+            }
 
             if (coyoteTimer > 0f && input.ConsumeJump())
             {
@@ -139,6 +166,16 @@ namespace Game01
                 jumpCutAvailable = true;
                 IsGrounded = false;
                 Jumped?.Invoke();
+            }
+            else if (wallCoyoteTimer > 0f && input.ConsumeJump())
+            {
+                v = new Vector2(-lastWallSide * stats.wallJumpHorizontalSpeed, stats.WallJumpVelocity);
+                Facing = -lastWallSide;
+                wallCoyoteTimer = 0f;
+                wallJumpLockTimer = stats.wallJumpInputLock;
+                jumpCutAvailable = true;
+                IsWallSliding = false;
+                WallJumped?.Invoke(lastWallSide);
             }
             if (jumpCutAvailable && !input.JumpHeld && v.y > 0f)
             {
@@ -149,6 +186,8 @@ namespace Game01
                 jumpCutAvailable = false;
 
             ApplyGravity(ref v, dt);
+            if (IsWallSliding)
+                v.y = Mathf.Max(v.y, -stats.wallSlideSpeed);
             rb.linearVelocity = v;
 
             // Transiciones, en orden de prioridad.
@@ -375,6 +414,7 @@ namespace Game01
 
         void SetState(State next)
         {
+            IsWallSliding = false;
             Current = next;
             stateTimer = 0f;
             StateChanged?.Invoke(next);
@@ -387,6 +427,31 @@ namespace Game01
         }
 
         bool CanDash() => dashCooldownTimer <= 0f && (IsGrounded || airDashAvailable);
+
+        static readonly System.Collections.Generic.List<Collider2D> s_WallHits = new();
+
+        /// <summary>-1 si hay pared a la izquierda, 1 a la derecha, 0 si no. Ignora plataformas de una vía.</summary>
+        int WallSide()
+        {
+            if (TouchingWall(1)) return 1;
+            if (TouchingWall(-1)) return -1;
+            return 0;
+        }
+
+        bool TouchingWall(int side)
+        {
+            var b = bodyCollider.bounds;
+            var center = new Vector2(b.center.x + side * (b.extents.x + 0.05f), b.center.y + 0.2f);
+            var size = new Vector2(0.1f, b.size.y * 0.5f);
+            var filter = new ContactFilter2D { useTriggers = false };
+            filter.SetLayerMask(groundMask);
+            s_WallHits.Clear();
+            Physics2D.OverlapBox(center, size, 0f, filter, s_WallHits);
+            foreach (var col in s_WallHits)
+                if (!col.usedByEffector)
+                    return true;
+            return false;
+        }
 
         void ApplyGravity(ref Vector2 v, float dt)
         {
@@ -413,6 +478,8 @@ namespace Game01
         void TickTimers(float dt)
         {
             coyoteTimer -= dt;
+            wallCoyoteTimer -= dt;
+            wallJumpLockTimer -= dt;
             dashCooldownTimer -= dt;
             invulnerableTimer -= dt;
         }

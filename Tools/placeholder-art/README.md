@@ -1,7 +1,7 @@
 # Arte provisorio generado por código
 
 `make_player.py` genera `Assets/Art/Characters/Player/player.aseprite`: el
-protagonista en forma humana (fase 1 del GDD) con 11 animaciones. Sirve para
+protagonista en forma humana (fase 1 del GDD) con 12 animaciones. Sirve para
 probar escala, proporciones y timing en el juego.
 
 | Tag | Frames | Duración | Repite |
@@ -9,6 +9,7 @@ probar escala, proporciones y timing en el juego.
 | idle | 4 | 720 ms | sí |
 | run | 8 | 640 ms | sí |
 | jump / fall | 2 / 2 | 200 ms | sí |
+| wall_slide | 2 | 240 ms | sí |
 | attack_01 / attack_02 | 6 / 6 | 400 ms | no |
 | dash | 3 | 160 ms | no |
 | block | 2 | 150 ms | no (queda en la guardia) |

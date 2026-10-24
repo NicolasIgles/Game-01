@@ -13,6 +13,6 @@ EditorBuildSettings:
     guid: 2fbdb4bed24f77c4ba1d341d84642679
   - enabled: 1
     path: Assets/Scenes/Bosque.unity
-    guid: 698675a546b9770418ab488b703cf90a
+    guid: 5d96d7a7d7f59ce4281c493bc36f18c9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

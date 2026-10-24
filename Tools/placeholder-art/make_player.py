@@ -355,6 +355,20 @@ def fall_frames():
             frame(100, pose((-10, -25), (18, 5), (-115, -140), (105, 125), hip=AIR_HIP, hair=-2, hem=2))]
 
 
+def wall_slide_frames():
+    """Deslizándose de espaldas a la pared (que queda atrás, a la izquierda del
+    lienzo): la mano lejana raspa la piedra y caen piedritas."""
+    frames = []
+    for i in range(2):
+        p = pose((-40, -5), (35, -30), (25, 50), (-125, -155), hip=AIR_HIP, lean=-1, hair=-1 - i, hem=1)
+        wall_x = CX - 8
+        hip_y = AIR_HIP[1]
+        p["fx"] = [("dots", [(wall_x + 1, hip_y - 10 + i * 3, ROBE_SH), (wall_x, hip_y - 4 + i * 4, HAIR_SH),
+                             (wall_x + 2, hip_y + 2 + i * 3, ROBE_SH), (wall_x + 1, hip_y + 8 - i * 2, HAIR_DK)])]
+        frames.append(frame(120, p))
+    return frames
+
+
 BLOCK_POSE = dict(far=(-20, -12), near=(18, 8), far_arm=(70, 130), near_arm=(85, 140), sword=150)
 
 
@@ -423,6 +437,7 @@ ANIMATIONS = [
     ("run", run_frames, 0),
     ("jump", jump_frames, 0),
     ("fall", fall_frames, 0),
+    ("wall_slide", wall_slide_frames, 0),
     ("attack_01", attack_01_frames, 1),
     ("attack_02", attack_02_frames, 1),
     ("dash", dash_frames, 1),

@@ -31,7 +31,7 @@ encima del suelo.
 | `#` | Tierra con pasto (sólido) |
 | `R` | Roca (sólido) |
 | `C` | Suelo quemado del cráter (sólido) |
-| `W` | Pared lisa con vetas de plata: obstáculo del salto de pared (sólido) |
+| `W` | Pared lisa con vetas de plata (sólido). Se escala con el salto de pared, que se desbloquea con 1 fragmento; muestra un aviso si todavía no lo tenés |
 | `=` | Tronco: plataforma que se atraviesa desde abajo |
 | `~` | Brasas (peligro) |
 | `^` | Estacas quemadas (peligro) |
@@ -40,7 +40,6 @@ encima del suelo.
 | `F` | Plataforma frágil (escribir `FF`: ocupa 2 tiles) |
 | `L` | Palanca: se activa con un golpe y hace aparecer todos los `E` |
 | `E` | Escalón de raíces, aparece con la palanca |
-| `w` | Saliente de luz, aparece con 1 fragmento (provisorio hasta tener salto de pared) |
 | `V` | Velo de espíritus, se abre con 2 fragmentos (columna de 1×4) |
 | `B` | Puerta de jefe (bloque de 2×4) |
 | `K` | Relicario (usa `texto K`) |
@@ -60,3 +59,7 @@ encima del suelo.
 Las medidas salen de la Biblia de niveles: escalón cómodo ≤ 3 tiles, hueco cómodo
 ≤ 4, hueco exigente 6–7 (salto + dash), pasillos de al menos 4 de alto y ningún
 enemigo a menos de 8 tiles de la entrada de la sala.
+
+Salto de pared (valores iniciales de PlayerStats): sube ~2 tiles por rebote al
+escalar una sola pared y ~3 entre dos paredes enfrentadas separadas por 3–5
+tiles. Funciona en cualquier pared sólida, no en troncos (`=`).

@@ -38,6 +38,20 @@ namespace Game01
         [Tooltip("Margen para que una pulsación temprana igual cuente.")]
         public float inputBuffer = 0.12f;
 
+        [Header("Salto de pared")]
+        [Tooltip("Fragmentos de gracia necesarios. 0 = siempre disponible.")]
+        public int wallJumpRequiredFragments = 1;
+        [Tooltip("Velocidad máxima de caída mientras se desliza por la pared.")]
+        public float wallSlideSpeed = 3f;
+        [Tooltip("Altura del salto de pared, en tiles.")]
+        public float wallJumpHeight = 3f;
+        [Tooltip("Velocidad con la que se despega de la pared.")]
+        public float wallJumpHorizontalSpeed = 7.5f;
+        [Tooltip("Tiempo sin control horizontal después del salto de pared. Corto = se puede volver a la misma pared y escalarla.")]
+        public float wallJumpInputLock = 0.15f;
+        [Tooltip("Margen para saltar justo después de soltarse de la pared.")]
+        public float wallCoyoteTime = 0.08f;
+
         [Header("Dash")]
         public float dashSpeed = 20f;
         public float dashDuration = 0.16f;
@@ -80,5 +94,6 @@ namespace Game01
 
         public float Gravity => 2f * jumpHeight / (timeToApex * timeToApex);
         public float JumpVelocity => 2f * jumpHeight / timeToApex;
+        public float WallJumpVelocity => Mathf.Sqrt(2f * Gravity * wallJumpHeight);
     }
 }

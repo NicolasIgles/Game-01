@@ -21,6 +21,7 @@ namespace Game01
         static readonly int Run = Animator.StringToHash("run");
         static readonly int Jump = Animator.StringToHash("jump");
         static readonly int Fall = Animator.StringToHash("fall");
+        static readonly int WallSlide = Animator.StringToHash("wall_slide");
         static readonly int Attack01 = Animator.StringToHash("attack_01");
         static readonly int Attack02 = Animator.StringToHash("attack_02");
         static readonly int Dash = Animator.StringToHash("dash");
@@ -102,6 +103,8 @@ namespace Game01
                 case PlayerController.State.Dash:
                     return Dash;
                 default:
+                    if (player.IsWallSliding)
+                        return WallSlide;
                     if (player.IsGrounded)
                         return Mathf.Abs(rb.linearVelocity.x) > runThreshold ? Run : Idle;
                     return rb.linearVelocity.y > 0f ? Jump : Fall;

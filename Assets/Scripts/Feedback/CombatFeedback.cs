@@ -43,6 +43,7 @@ namespace Game01
                 player.Parried -= OnParried;
                 player.Blocked -= OnBlocked;
                 player.Jumped -= OnJumped;
+                player.WallJumped -= OnWallJumped;
                 player.Landed -= OnLanded;
                 player.Damaged -= OnDamaged;
                 player.HealApplied -= OnHealApplied;
@@ -54,6 +55,7 @@ namespace Game01
             player.Parried += OnParried;
             player.Blocked += OnBlocked;
             player.Jumped += OnJumped;
+            player.WallJumped += OnWallJumped;
             player.Landed += OnLanded;
             player.Damaged += OnDamaged;
             player.HealApplied += OnHealApplied;
@@ -117,6 +119,7 @@ namespace Game01
         }
 
         void OnJumped() => GameFeel.Play(SoundId.Jump);
+        void OnWallJumped(int wallSide) => GameFeel.Play(SoundId.Jump);
 
         void OnLanded(float fallSpeed)
         {

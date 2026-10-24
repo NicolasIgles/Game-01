@@ -28,6 +28,7 @@ namespace Game01
             player.StateChanged += OnState;
             player.Parried += OnParried;
             player.Blocked += OnBlocked;
+            player.WallJumped += OnWallJumped;
         }
 
         void OnDisable()
@@ -35,6 +36,7 @@ namespace Game01
             player.StateChanged -= OnState;
             player.Parried -= OnParried;
             player.Blocked -= OnBlocked;
+            player.WallJumped -= OnWallJumped;
         }
 
         void FixedUpdate()
@@ -55,5 +57,9 @@ namespace Game01
 
         void OnParried() => LevelFX.Play(LevelFX.Kind.Parry, Front);
         void OnBlocked() => LevelFX.Play(LevelFX.Kind.Spark, Front);
+
+        // Polvo contra la pared al impulsarse.
+        void OnWallJumped(int wallSide) =>
+            LevelFX.Play(LevelFX.Kind.Dust, (Vector2)transform.position + new Vector2(wallSide * 0.5f, 0.6f), wallSide < 0);
     }
 }

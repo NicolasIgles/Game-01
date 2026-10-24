@@ -81,7 +81,7 @@ namespace Game01.EditorTools
             public Material unlit;
             public int ground, enemy, player;
             public Transform root, objects, enemies, decor, effects, backgrounds;
-            public readonly List<GameObject> rootSteps = new(), lightLedges = new(), bossDoors = new(), fog = new();
+            public readonly List<GameObject> rootSteps = new(), bossDoors = new(), fog = new();
             public readonly List<PixelParticles> wisps = new();
             public readonly List<Lever> levers = new();
             public readonly List<(Room room, MeleeEnemy boss)> bosses = new();
@@ -304,10 +304,8 @@ namespace Game01.EditorTools
 
         static void BuildScene(string scenePath, Ctx ctx)
         {
-            AssetDatabase.DeleteAsset(scenePath);
-            if (!AssetDatabase.CopyAsset(BaseScene, scenePath))
-                throw new InvalidOperationException("No pude copiar " + BaseScene);
-            var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            // Conserva el GUID de la escena: Git solo ve cambios reales y Build Settings no se rompe.
+            var scene = SceneFiles.ResetFromTemplate(BaseScene, scenePath);
 
             ctx.root = new GameObject("Nivel").transform;
             ctx.backgrounds = Child("Fondos", ctx.root);
@@ -334,7 +332,7 @@ namespace Game01.EditorTools
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            AddToBuildSettings(scenePath);
+            SceneFiles.EnsureInBuildSettings(scenePath);
             AssetDatabase.SaveAssets();
 
             string warn = ctx.warnings > 0 ? $" Avisos: {ctx.warnings} (ver arriba)." : "";
@@ -869,16 +867,14 @@ namespace Game01.EditorTools
             foreach (var step in ctx.rootSteps)
                 step.SetActive(false);
 
-            // w: salientes de luz (sprite de 32×8 con pivote abajo al centro), aparecen con 1 fragmento.
-            foreach (var g in Groups(ctx, 'w'))
+            // w: los salientes de luz se eliminaron (los reemplaza el salto de pared).
+            if (Groups(ctx, 'w').Count > 0)
             {
-                var ledge = OneWayPlatform(ctx, "Saliente de luz", g, ctx.S("light_ledge"), 0.5f, 1f, 0.35f);
-                PointLight(ledge, new Vector2(0f, 0.8f), GraceGold, 2.5f, 0.6f, flicker: false);
-                ledge.SetActive(false);
-                ctx.lightLedges.Add(ledge);
+                Debug.LogWarning("[Nivel] 'w' (saliente de luz) ya no existe: se escala con el salto de pared. Se ignora.");
+                ctx.warnings++;
             }
 
-            // W: pared lisa. Aviso al pie y salientes de luz como recompensa del primer fragmento.
+            // W: pared lisa que se escala con el salto de pared (primer fragmento). Aviso al pie.
             foreach (var g in Groups(ctx, 'W'))
             {
                 var go = Obj("Pared lisa (1 fragmento)", ctx.objects, new Vector2(g.x - 1.5f, g.y), 0);
@@ -886,9 +882,9 @@ namespace Game01.EditorTools
                 col.isTrigger = true;
                 col.size = new Vector2(3f, 4f);
                 col.offset = new Vector2(0f, 2f);
-                go.AddComponent<AbilityGate>().Configure(AbilityGate.Mode.Reveal, 1, null, new List<GameObject>(ctx.lightLedges),
+                go.AddComponent<AbilityGate>().Configure(AbilityGate.Mode.Reveal, 1, null, new List<GameObject>(),
                     "Una pared lisa con vetas de plata. No hay de dónde agarrarse.",
-                    "Salientes de luz brotan en la pared lisa");
+                    "Las vetas de plata responden a tu gracia: ya podés saltar de pared en pared");
             }
 
             // V: velo de espíritus, se abre con 2 fragmentos.
@@ -1171,15 +1167,6 @@ namespace Game01.EditorTools
         }
 
         // ---------------------------------------------------------------- utilidades
-
-        static void AddToBuildSettings(string path)
-        {
-            var scenes = EditorBuildSettings.scenes.ToList();
-            if (scenes.Any(s => s.path == path))
-                return;
-            scenes.Add(new EditorBuildSettingsScene(path, true));
-            EditorBuildSettings.scenes = scenes.ToArray();
-        }
 
         static void EnsureFolder(string folder)
         {
