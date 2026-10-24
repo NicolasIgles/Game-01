@@ -394,7 +394,7 @@ namespace Game01
 
         // ---------------------------------------------------------------- placeholder
 
-        static readonly Color ColorNormal = new(0.94f, 0.94f, 1f);
+        static readonly Color ColorNormal = Color.white;
         static readonly Color ColorDash = new(0.25f, 0.82f, 1f);
         static readonly Color ColorWindup = new(1f, 0.85f, 0.3f);
         static readonly Color ColorActive = new(0.8f, 0.09f, 0.19f);
