@@ -141,9 +141,12 @@ namespace Game01
                 Facing = (int)x;
 
             var v = rb.linearVelocity;
-            float accel = IsGrounded ? stats.groundAcceleration : stats.airAcceleration;
+            // En el piso, frenar y darse vuelta es más seco que arrancar.
+            float target = x * stats.runSpeed;
+            bool speedingUp = Mathf.Abs(target) > Mathf.Abs(v.x) && (v.x == 0f || Mathf.Sign(target) == Mathf.Sign(v.x));
+            float accel = !IsGrounded ? stats.airAcceleration : speedingUp ? stats.groundAcceleration : stats.groundDeceleration;
             if (!inputLocked)
-                v.x = Mathf.MoveTowards(v.x, x * stats.runSpeed, accel * dt);
+                v.x = Mathf.MoveTowards(v.x, target, accel * dt);
 
             // Pared: se puede agarrar empujando hacia ella mientras cae.
             int wallSide = !IsGrounded && CanWallJump ? WallSide() : 0;
@@ -455,7 +458,13 @@ namespace Game01
 
         void ApplyGravity(ref Vector2 v, float dt)
         {
-            float multiplier = v.y < 0f ? stats.fallGravityMultiplier : 1f;
+            // Sube rápido, queda un instante suspendido arriba (si mantiene el salto) y cae más rápido.
+            float multiplier = 1f;
+            bool nearApex = !IsGrounded && Current == State.Normal && input.JumpHeld && Mathf.Abs(v.y) < stats.apexThreshold;
+            if (nearApex)
+                multiplier = stats.apexGravityMultiplier;
+            else if (v.y < 0f)
+                multiplier = stats.fallGravityMultiplier;
             v.y = Mathf.Max(v.y - stats.Gravity * multiplier * dt, -stats.maxFallSpeed);
         }
 

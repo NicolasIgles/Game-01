@@ -8,6 +8,7 @@ namespace Game01
     {
         Swing, Hit, Hurt, Block, Parry, Dash, Jump, Land, HealStart, Heal,
         EnemyWindup, EnemyWindupUnblockable, EnemyDeath, PlayerDeath,
+        BossRoar, SpiritLaunch,
     }
 
     /// <summary>

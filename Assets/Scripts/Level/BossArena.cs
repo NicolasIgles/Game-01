@@ -14,7 +14,8 @@ namespace Game01
         [SerializeField] Rect area;
         [Tooltip("Cuánto hay que entrar en la arena para que empiece la pelea.")]
         [SerializeField] float triggerDepth = 4f;
-        [SerializeField] MeleeEnemy boss;
+        [Tooltip("Cualquier componente que implemente IBoss (AzazelBoss, MeleeEnemy...).")]
+        [SerializeField] MonoBehaviour boss;
         [SerializeField] List<GameObject> doors = new();
         [SerializeField] GameObject reward;
         [SerializeField] AfterKing afterKing;
@@ -26,7 +27,9 @@ namespace Game01
         Health playerHealth, bossHealth;
         bool started, defeated;
 
-        public void Configure(Rect arena, MeleeEnemy bossEnemy, List<GameObject> doorObjects, GameObject rewardObject,
+        IBoss Boss => boss as IBoss;
+
+        public void Configure(Rect arena, MonoBehaviour bossEnemy, List<GameObject> doorObjects, GameObject rewardObject,
             AfterKing after, string title, string defeated)
         {
             area = arena;
@@ -80,7 +83,7 @@ namespace Game01
             if (!started)
                 yield break;
             boss.gameObject.SetActive(true);
-            boss.ResetEnemy();
+            Boss?.BeginFight();
         }
 
         void OnBossDied()
@@ -93,7 +96,7 @@ namespace Game01
 
         IEnumerator Victory()
         {
-            yield return new WaitForSeconds(boss.Stats != null ? boss.Stats.deathDuration + 0.3f : 1f);
+            yield return new WaitForSeconds(Boss != null ? Boss.DeathDuration + 0.3f : 1f);
             boss.gameObject.SetActive(false);
             SetDoors(false, instant: false);
             if (reward != null)

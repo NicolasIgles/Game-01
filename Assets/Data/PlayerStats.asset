@@ -18,12 +18,12 @@ MonoBehaviour:
   hurtKnockback: {x: 6, y: 6}
   respawnDelay: 1.2
   runSpeed: 7.5
-  groundAcceleration: 80
-  airAcceleration: 50
+  groundAcceleration: 110
+  airAcceleration: 60
   jumpHeight: 3.5
-  timeToApex: 0.38
-  fallGravityMultiplier: 1.7
-  maxFallSpeed: 22
+  timeToApex: 0.33
+  fallGravityMultiplier: 2.3
+  maxFallSpeed: 26
   jumpCutMultiplier: 0.5
   coyoteTime: 0.1
   inputBuffer: 0.12

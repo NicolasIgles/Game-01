@@ -35,7 +35,7 @@ MonoBehaviour:
   attackCooldown: 0.6
   attackDamage: 15
   attackKnockback: 6
-  attackLunge: 4
+  attackLunge: 7
   hitboxSize: {x: 1.6, y: 1.4}
   hitboxOffset: {x: 0.9, y: 0.8}
   unblockableEvery: 0

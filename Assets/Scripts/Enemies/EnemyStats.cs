@@ -48,7 +48,7 @@ namespace Game01
         public int attackDamage = 15;
         public float attackKnockback = 6f;
         [Tooltip("Impulso hacia adelante al lanzar el golpe.")]
-        public float attackLunge = 4f;
+        public float attackLunge = 7f;
         public Vector2 hitboxSize = new(1.6f, 1.4f);
         [Tooltip("Centro de la hitbox desde los pies, mirando a la derecha.")]
         public Vector2 hitboxOffset = new(0.9f, 0.8f);

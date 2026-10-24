@@ -21,16 +21,22 @@ namespace Game01
 
         [Header("Movimiento")]
         public float runSpeed = 7.5f;
-        public float groundAcceleration = 80f;
-        public float airAcceleration = 50f;
+        public float groundAcceleration = 110f;
+        [Tooltip("Al frenar o darse vuelta en el piso. Más alto que la aceleración = paradas secas.")]
+        public float groundDeceleration = 170f;
+        public float airAcceleration = 60f;
 
         [Header("Salto")]
         [Tooltip("Altura máxima en tiles.")]
         public float jumpHeight = 3.5f;
         [Tooltip("Segundos hasta llegar al punto más alto.")]
-        public float timeToApex = 0.38f;
-        public float fallGravityMultiplier = 1.7f;
-        public float maxFallSpeed = 22f;
+        public float timeToApex = 0.33f;
+        [Tooltip("Gravedad cerca del punto más alto mientras se mantiene el salto: < 1 = queda suspendido un instante.")]
+        public float apexGravityMultiplier = 0.45f;
+        [Tooltip("Velocidad vertical por debajo de la cual se considera que está en el punto más alto.")]
+        public float apexThreshold = 2.5f;
+        public float fallGravityMultiplier = 2.3f;
+        public float maxFallSpeed = 26f;
         [Tooltip("Al soltar el botón mientras sube, la velocidad se multiplica por esto.")]
         [Range(0f, 1f)] public float jumpCutMultiplier = 0.5f;
         [Tooltip("Margen para saltar justo después de dejar el borde.")]
@@ -48,7 +54,7 @@ namespace Game01
         [Tooltip("Velocidad con la que se despega de la pared.")]
         public float wallJumpHorizontalSpeed = 7.5f;
         [Tooltip("Tiempo sin control horizontal después del salto de pared. Corto = se puede volver a la misma pared y escalarla.")]
-        public float wallJumpInputLock = 0.15f;
+        public float wallJumpInputLock = 0.12f;
         [Tooltip("Margen para saltar justo después de soltarse de la pared.")]
         public float wallCoyoteTime = 0.08f;
 

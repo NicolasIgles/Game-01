@@ -40,7 +40,6 @@ namespace Game01.EditorTools
         const string GhoulPrefab = "Assets/Prefabs/Enemies/Ghoul.prefab";
         const string DummyPrefab = "Assets/Prefabs/TrainingDummy.prefab";
         const string GhoulStatsPath = "Assets/Data/Enemies/GhoulStats.asset";
-        const string AzazelStatsPath = "Assets/Data/Enemies/AzazelStats.asset";
         const string UnlitMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat";
 
         static readonly Color SpiritGreen = new(0.38f, 0.78f, 0.13f);
@@ -84,7 +83,7 @@ namespace Game01.EditorTools
             public readonly List<GameObject> rootSteps = new(), bossDoors = new(), fog = new();
             public readonly List<PixelParticles> wisps = new();
             public readonly List<Lever> levers = new();
-            public readonly List<(Room room, MeleeEnemy boss)> bosses = new();
+            public readonly List<(Room room, MonoBehaviour boss)> bosses = new();
             public PlayerController playerInstance;
             public string generatedFolder;
             public int warnings;
@@ -730,72 +729,19 @@ namespace Game01.EditorTools
 
         static void PlaceBoss(Ctx ctx, Room room, Vector2 at)
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(GhoulPrefab);
-            var baseStats = AssetDatabase.LoadAssetAtPath<EnemyStats>(GhoulStatsPath);
-            if (prefab == null || baseStats == null)
+            var prefab = AzazelSetup.EnsurePrefabs();
+            if (prefab == null)
             {
-                Debug.LogWarning("[Nivel] Falta el necrófago o sus stats; Azazel no se coloca.");
+                Debug.LogWarning("[Nivel] No se pudo crear el prefab de Azazel; la arena queda sin jefe.");
                 ctx.warnings++;
                 return;
             }
             var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, ctx.enemies);
-            PrefabUtility.UnpackPrefabInstance(go, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-            go.name = "Azazel (provisorio)";
+            go.name = "Azazel";
             go.transform.position = at;
-
-            // Sprite estático provisorio en lugar del modelo animado del necrófago.
-            var visual = go.transform.Find("Visual");
-            for (int i = visual.childCount - 1; i >= 0; i--)
-                Object.DestroyImmediate(visual.GetChild(i).gameObject);
-            var sr = SpriteChild(visual.gameObject, ctx.S("azazel"), 5);
-            var anim = go.GetComponent<EnemyAnimator>();
-            if (anim != null)
-                Object.DestroyImmediate(anim);
-
-            var col = go.GetComponent<BoxCollider2D>();
-            col.size = new Vector2(2.5f, 5f);
-            col.offset = new Vector2(0f, 2.5f);
-
-            var so = new SerializedObject(go.GetComponent<MeleeEnemy>());
-            so.FindProperty("stats").objectReferenceValue = EnsureBossStats(baseStats);
-            so.FindProperty("bodyRenderer").objectReferenceValue = sr;
-            so.ApplyModifiedPropertiesWithoutUndo();
-
             go.AddComponent<DamageSpark>();
             PointLight(go, new Vector2(0f, 3f), SpiritGreen, 6f, 0.9f, flicker: true);
-            ctx.bosses.Add((room, go.GetComponent<MeleeEnemy>()));
-        }
-
-        /// <summary>Valores iniciales de Azazel en fase 1. Si el asset ya existe no se toca: se ajusta a mano.</summary>
-        static EnemyStats EnsureBossStats(EnemyStats baseStats)
-        {
-            var stats = AssetDatabase.LoadAssetAtPath<EnemyStats>(AzazelStatsPath);
-            if (stats != null)
-                return stats;
-            stats = Object.Instantiate(baseStats);
-            stats.maxHealth = 260;
-            stats.patrolSpeed = 1.2f;
-            stats.chaseSpeed = 3.2f;
-            stats.patrolDistance = 3f;
-            stats.detectionRange = 30f;
-            stats.loseRange = 40f;
-            stats.verticalTolerance = 6f;
-            stats.requireLineOfSight = false;
-            stats.backDetectionRange = 30f;
-            stats.attackRange = 3.2f;
-            stats.attackWindup = 0.6f;
-            stats.attackRecovery = 0.8f;
-            stats.attackCooldown = 0.5f;
-            stats.attackDamage = 25;
-            stats.attackKnockback = 8f;
-            stats.hitboxSize = new Vector2(3.4f, 2.6f);
-            stats.hitboxOffset = new Vector2(1.9f, 1.4f);
-            stats.unblockableEvery = 3;
-            stats.hurtKnockbackMultiplier = 0.2f;
-            stats.stunTime = 1.8f;
-            EnsureFolder(Path.GetDirectoryName(AzazelStatsPath));
-            AssetDatabase.CreateAsset(stats, AzazelStatsPath);
-            return stats;
+            ctx.bosses.Add((room, go.GetComponent<AzazelBoss>()));
         }
 
         // ---------------------------------------------------------------- objetos de varias casillas

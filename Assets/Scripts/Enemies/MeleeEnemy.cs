@@ -12,7 +12,7 @@ namespace Game01
     /// esté activo. Reaparece cuando el jugador reaparece.
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D), typeof(Health))]
-    public class MeleeEnemy : MonoBehaviour, IDamageable, IParryable
+    public class MeleeEnemy : MonoBehaviour, IBoss, IParryable
     {
         public enum State { Patrol, Chase, Windup, Attack, Recovery, Stunned, Hurt, Dead }
 
@@ -252,6 +252,11 @@ namespace Game01
             SetState(State.Dead);
             CombatEvents.RaiseEnemyDied((Vector2)transform.position + Vector2.up);
         }
+
+        // IBoss: un MeleeEnemy con stats altos también puede ser jefe de una arena.
+        public void BeginFight() => ResetEnemy();
+        public void ResetBoss() => ResetEnemy();
+        public float DeathDuration => stats.deathDuration;
 
         /// <summary>Vuelve a su lugar con la vida llena (al reaparecer el jugador).</summary>
         public void ResetEnemy()

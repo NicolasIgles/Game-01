@@ -183,11 +183,31 @@ def player_death():  # tono grave que se apaga
     return finish(x, 0.7)
 
 
+def boss_roar():  # rugido de Azazel: gruñido grave y largo con armónicos que crecen
+    d = 1.3
+    tt = t(d)
+    base = sweep(55, 85, d, "saw") * (1 + 0.4 * np.sin(2 * np.pi * 9 * tt))
+    upper = sweep(110, 160, d, "saw") * 0.5 * np.linspace(0.2, 1, len(tt))
+    rasp = lowpass(noise(d), 900) * 0.6
+    x = lowpass(mix(base, upper, rasp), 1400) * env(int(SR * d), 0.15, curve=1.2)
+    return finish(np.tanh(2.5 * x), 0.8)
+
+
+def spirit_launch():  # chillido fantasmal que sube: aviso de espíritu
+    d = 0.35
+    tt = t(d)
+    wail = sweep(500, 1300, d) * (1 + 0.3 * np.sin(2 * np.pi * 14 * tt))
+    breath = lowpass(highpass(noise(d), 800), 4000) * 0.3
+    x = mix(wail * 0.7, breath) * env(int(SR * d), 0.05, curve=2.5)
+    return finish(x, 0.55)
+
+
 SOUNDS = {
     "swing": swing, "hit": hit, "hurt": hurt, "block": block, "parry": parry,
     "dash": dash, "jump": jump, "land": land, "heal_start": heal_start, "heal": heal,
     "enemy_windup": enemy_windup, "enemy_windup_unblockable": enemy_windup_unblockable,
     "enemy_death": enemy_death, "player_death": player_death,
+    "boss_roar": boss_roar, "spirit_launch": spirit_launch,
 }
 
 

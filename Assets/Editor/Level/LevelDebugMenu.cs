@@ -28,9 +28,9 @@ namespace Game01.EditorTools
         static void DefeatBoss()
         {
             foreach (var arena in Object.FindObjectsByType<BossArena>())
-                foreach (var boss in arena.GetComponentsInChildren<MeleeEnemy>())
-                    if (boss.isActiveAndEnabled)
-                        boss.ReceiveHit(new HitInfo { Damage = 100000, SourcePosition = boss.transform.position });
+                foreach (var behaviour in arena.GetComponentsInChildren<MonoBehaviour>())
+                    if (behaviour is IBoss boss && behaviour.isActiveAndEnabled)
+                        boss.ReceiveHit(new HitInfo { Damage = 100000, SourcePosition = behaviour.transform.position });
         }
 
         [MenuItem(Root + "Ir a la sala siguiente %#.", true)]

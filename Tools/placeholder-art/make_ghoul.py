@@ -221,9 +221,9 @@ def attack_frames():
     far, near = (-20, 10), (30, 0)
     out = []
     # anticipación: se echa hacia atrás y levanta la garra; los ojos se encienden
-    for d, hunch, up, lo, glow in [(150, 20, 150, 175, 0), (175, 10, 170, 200, 1), (175, 5, 180, 210, 1)]:
+    for d, hunch, up, lo, glow in [(230, 20, 150, 175, 0), (190, 10, 170, 200, 1), (80, 5, 180, 210, 1)]:
         p = pose(far, near, (-20, -30), (up, lo), hunch=hunch, glow=glow, hair=1)
-        if d == 175 and hunch == 5:
+        if hunch == 5:
             hxp, hyp = head_pos(p)
             p["fx"] = [("glint", round(hxp + 2), round(hyp - 1), 3)]
         out.append(frame(d, p))
@@ -233,8 +233,8 @@ def attack_frames():
     p["fx"] = [("slash", sx + 1.5, sy + 1, 15, 190, 75, 4)]
     out.append(frame(100, p))
     # recuperación: el brazo queda colgando adelante y vuelve de a poco
-    for hunch, up, lo in [(48, 45, 25), (42, 30, 15), (35, 18, 5)]:
-        out.append(frame(200, pose((-25, 5), (35, 5), (-10, -20), (up, lo), hunch=hunch, hair=1, bloody=True)))
+    for d, hunch, up, lo in [(110, 48, 45, 25), (210, 42, 30, 15), (280, 35, 18, 5)]:
+        out.append(frame(d, pose((-25, 5), (35, 5), (-10, -20), (up, lo), hunch=hunch, hair=1, bloody=True)))
     return out
 
 

@@ -259,7 +259,7 @@ def run_frames():
             "far_arm": (arm, arm + 80), "near_arm": (-arm, -arm + 80),
             "hair": 2 + (i % 2), "hem": -2 - (i % 2),
         }
-        frames.append({"duration": 80, "cels": draw_pose(pose)})
+        frames.append({"duration": 60, "cels": draw_pose(pose)})
     return frames
 
 
@@ -292,10 +292,10 @@ def attack_01_frames():
                   slash=(160, 100, 5, BLADE, ROBE_HI))),
         (40, dict(far_arm=(-40, -25), near_arm=(70, 60), sword=50, lean=2, hair=2, hem=-2,
                   slash=(115, 45, 5, BLADE, ROBE_HI))),
-        (90, dict(far_arm=(-30, -15), near_arm=(45, 35), sword=35, lean=1, hair=1,
+        (60, dict(far_arm=(-30, -15), near_arm=(45, 35), sword=35, lean=1, hair=1,
                   slash=(60, 30, 2, ROBE_SH, ROBE_SH))),
-        (80, dict(far_arm=(-20, -5), near_arm=(30, 25), sword=25, lean=1, hair=1)),
-        (80, dict(far_arm=(-10, 0), near_arm=(15, 15), sword=12)),
+        (90, dict(far_arm=(-20, -5), near_arm=(30, 25), sword=25, lean=1, hair=1)),
+        (100, dict(far_arm=(-10, 0), near_arm=(15, 15), sword=12)),
     ]
     return [attack_frame(d, far, near, k) for d, k in keys]
 
@@ -309,10 +309,10 @@ def attack_02_frames():
                   slash=(15, 90, 5, BLADE, ROBE_HI))),
         (40, dict(far_arm=(-45, -30), near_arm=(130, 150), sword=150, lean=2, hair=3, hem=-3,
                   slash=(75, 150, 5, BLADE, ROBE_HI))),
-        (90, dict(far_arm=(-35, -20), near_arm=(120, 135), sword=140, lean=1, hair=2,
+        (60, dict(far_arm=(-35, -20), near_arm=(120, 135), sword=140, lean=1, hair=2,
                   slash=(125, 150, 2, ROBE_SH, ROBE_SH))),
-        (80, dict(far_arm=(-20, -10), near_arm=(80, 90), sword=95, lean=1, hair=1)),
-        (80, dict(far_arm=(-10, 0), near_arm=(35, 40), sword=40)),
+        (90, dict(far_arm=(-20, -10), near_arm=(80, 90), sword=95, lean=1, hair=1)),
+        (100, dict(far_arm=(-10, 0), near_arm=(35, 40), sword=40)),
     ]
     return [attack_frame(d, far, near, k) for d, k in keys]
 

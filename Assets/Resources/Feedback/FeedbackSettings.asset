@@ -72,6 +72,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 98b70fcb0acc5c34181b83cc1fbdcd58, type: 3}
     volume: 0.8
     pitchVariance: 0.05
+  - id: 14
+    clip: {fileID: 8300000, guid: 9011c5a5f92fe35488c38c287c77a0e6, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
+  - id: 15
+    clip: {fileID: 8300000, guid: 61dc32689ed47b6488d438d4cb4de714, type: 3}
+    volume: 0.8
+    pitchVariance: 0.05
   hitStopHit: 0.05
   hitStopHurt: 0.09
   hitStopBlock: 0.03
