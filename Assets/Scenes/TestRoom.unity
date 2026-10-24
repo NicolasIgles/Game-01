@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 349566197}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14, y: 3, z: 0}
+  m_LocalPosition: {x: -14, y: 5.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,6 +397,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1001 &503760690
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1617276551218715372, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_Name
+      value: Ghoul 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1273,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!1001 &1507051867
+--- !u!1001 &1581364043
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1224,47 +1281,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4191259898021050567, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 1617276551218715372, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_Name
-      value: TrainingDummy (al otro lado del hueco)
+      value: Ghoul 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26
+      value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8878435317852423013, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -1272,7 +1329,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e6c29ee3afd7606438b66ff865f34493, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
 --- !u!1 &1599377037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,6 +1608,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1001 &1866596943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1617276551218715372, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_Name
+      value: Ghoul 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086571112651874696, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 203a72fb394205d4e845cd8ddcbeddd0, type: 3}
 --- !u!1 &1882443685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,4 +1852,6 @@ SceneRoots:
   - {fileID: 1973261517}
   - {fileID: 858374658}
   - {fileID: 1035985329}
-  - {fileID: 1507051867}
+  - {fileID: 1581364043}
+  - {fileID: 503760690}
+  - {fileID: 1866596943}

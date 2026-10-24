@@ -28,6 +28,27 @@ cero, respetando lo mismo:
   cabeza, pelo, brazo cercano, espada y efectos (sin contorno).
 - En Aseprite, "repeat" del tag en 0 = loop; 1 = se reproduce una vez.
 
-Para regenerarlo (necesita Python 3 y Pillow):
+## Necrófago (`make_ghoul.py`)
+
+Genera `Assets/Art/Enemies/Ghoul/ghoul.aseprite`: enemigo común del Bosque de
+la Caída. Lienzo de 64×48, cuerpo encorvado de ~28 px, pies en la fila 47.
+
+| Tag | Frames | Duración | Repite |
+|---|---|---|---|
+| idle | 4 | 800 ms | sí |
+| walk | 6 | 720 ms | sí |
+| attack | 7 | 1200 ms (0.5 aviso + 0.1 golpe + 0.6 recuperación) | no |
+| hurt | 2 | 250 ms | no |
+| stunned | 4 | 600 ms | sí |
+| death | 6 | 890 ms | no |
+
+Los tiempos del ataque y del daño tienen que coincidir con
+`Assets/Data/Enemies/GhoulStats`.
+
+## Regenerar
+
+Necesita Python 3 y Pillow. `pixeldraw.py` tiene las utilidades de dibujo
+compartidas y `aseprite_writer.py` escribe el formato .aseprite.
 
     python make_player.py ../../Assets/Art/Characters/Player
+    python make_ghoul.py ../../Assets/Art/Enemies/Ghoul

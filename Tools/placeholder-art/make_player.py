@@ -7,19 +7,15 @@ poder retocarla en Aseprite o sumar piezas de armadura encima.
 import math
 import os
 import sys
-from PIL import Image, ImageDraw
+from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from aseprite_writer import write_aseprite
+from pixeldraw import blank, hx, limb, line_points, outline, poly, put, rect, stroke
 
 W, H = 96, 64
 GROUND = 63
 CX = 48
-
-
-def hx(s):
-    s = s.lstrip("#")
-    return (int(s[0:2], 16), int(s[2:4], 16), int(s[4:6], 16), 255)
 
 
 # Paleta (GDD: paleta de la Tierra + plata del protagonista + contorno no negro)
@@ -44,67 +40,7 @@ L = {n: i for i, n in enumerate(LAYERS)}
 
 
 def new():
-    return Image.new("RGBA", (W, H), (0, 0, 0, 0))
-
-
-def line_points(x0, y0, x1, y1):
-    x0, y0, x1, y1 = map(round, (x0, y0, x1, y1))
-    pts = []
-    dx, dy = abs(x1 - x0), -abs(y1 - y0)
-    sx, sy = (1 if x0 < x1 else -1), (1 if y0 < y1 else -1)
-    err = dx + dy
-    while True:
-        pts.append((x0, y0))
-        if x0 == x1 and y0 == y1:
-            break
-        e2 = 2 * err
-        if e2 >= dy:
-            err += dy
-            x0 += sx
-        if e2 <= dx:
-            err += dx
-            y0 += sy
-    return pts
-
-
-def stroke(img, p0, p1, width, color, shade=None):
-    """Trazo grueso. Si hay `shade`, el borde inferior/trasero va más oscuro."""
-    px = img.load()
-    r = width / 2.0
-    for (x, y) in line_points(*p0, *p1):
-        for oy in range(-width, width + 1):
-            for ox in range(-width, width + 1):
-                if (ox + 0.5 - 0.5) ** 2 + (oy) ** 2 <= r * r:
-                    X, Y = x + ox, y + oy
-                    if 0 <= X < W and 0 <= Y < H:
-                        px[X, Y] = color
-    if shade:
-        for (x, y) in line_points(*p0, *p1):
-            X, Y = x - int(r) + 0, y + int(r) - 0
-            if 0 <= X < W and 0 <= Y < H and px[X, Y][3]:
-                px[X, Y] = shade
-
-
-def rect(img, x0, y0, x1, y1, color):
-    ImageDraw.Draw(img).rectangle([x0, y0, x1, y1], fill=color)
-
-
-def poly(img, pts, color):
-    ImageDraw.Draw(img).polygon([tuple(map(round, p)) for p in pts], fill=color)
-
-
-def put(img, x, y, color):
-    if 0 <= x < W and 0 <= y < H:
-        img.putpixel((int(x), int(y)), color)
-
-
-def limb(hip, a_thigh, a_shin, l1, l2):
-    """Ángulos en grados desde la vertical; positivo = hacia adelante (derecha)."""
-    t = math.radians(a_thigh)
-    knee = (hip[0] + l1 * math.sin(t), hip[1] + l1 * math.cos(t))
-    s = math.radians(a_shin)
-    ankle = (knee[0] + l2 * math.sin(s), knee[1] + l2 * math.cos(s))
-    return knee, ankle
+    return blank(W, H)
 
 
 # ---------------------------------------------------------------- pose → capas
@@ -278,19 +214,7 @@ def draw_pose(pose):
                     put(img, x, y, c)
 
     # ----- contorno de 1 px alrededor de la silueta (sin los efectos)
-    union = new()
-    for i in range(1, L["fx"]):
-        union.alpha_composite(cels[i])
-    up, op = union.load(), cels[L["outline"]].load()
-    for y in range(H):
-        for x in range(W):
-            if up[x, y][3]:
-                continue
-            for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                X, Y = x + ox, y + oy
-                if 0 <= X < W and 0 <= Y < H and up[X, Y][3]:
-                    op[x, y] = OUTLINE
-                    break
+    outline([cels[i] for i in range(1, L["fx"])], cels[L["outline"]], OUTLINE)
     return cels
 
 

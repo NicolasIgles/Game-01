@@ -47,6 +47,8 @@ namespace Game01
         public event Action<int> HealChargesChanged;
         public event Action Parried;
         public event Action Blocked;
+        /// <summary>Después de morir y reaparecer. Los enemigos lo usan para volver a su lugar.</summary>
+        public event Action Respawned;
 
         Rigidbody2D rb;
         Health health;
@@ -300,6 +302,7 @@ namespace Game01
             RefillHeals();
             invulnerableTimer = 1f;
             SetState(State.Normal);
+            Respawned?.Invoke();
         }
 
         // ---------------------------------------------------------------- daño

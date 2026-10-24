@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c6aca9f2846514db5eb41f678ec8e9, type: 3}
+  m_Name: GhoulStats
+  m_EditorClassIdentifier: Assembly-CSharp::Game01.EnemyStats
+  maxHealth: 40
+  hurtStagger: 0.25
+  hurtKnockbackMultiplier: 1
+  deathDuration: 0.9
+  patrolSpeed: 1.5
+  chaseSpeed: 3.5
+  acceleration: 30
+  patrolDistance: 4
+  patrolPause: 1
+  gravityScale: 4
+  detectionRange: 7
+  loseRange: 11
+  verticalTolerance: 2.5
+  backDetectionRange: 2
+  requireLineOfSight: 1
+  eyeHeight: 1.4
+  attackRange: 1.6
+  attackWindup: 0.5
+  attackActive: 0.1
+  attackRecovery: 0.6
+  attackCooldown: 0.6
+  attackDamage: 15
+  attackKnockback: 6
+  attackLunge: 4
+  hitboxSize: {x: 1.6, y: 1.4}
+  hitboxOffset: {x: 0.9, y: 0.8}
+  unblockableEvery: 0
+  windupInterruptible: 0
+  stunTime: 1.5
+  stunnedDamageMultiplier: 2
