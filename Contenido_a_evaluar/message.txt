@@ -1,0 +1,156 @@
+PARTE 1 — Templates de jugabilidad en GitHub
+Blasphemous no tiene el código fuente público (es comercial, de The Game Kitchen). Pero hay opciones reales y muy buenas:
+
+Opción A — Metroidvania Engine (la mejor)
+
+6 tool calls
+Web search: Unity 2D metroidvania template GitHub open source blasphemous-like combat 2024
+10 results
+
+Web search: Unity pixel art soulslike 2D platformer template GitHub free 2024
+10 results
+
+Web search: Unity 2D souls-like combat system GitHub open source parry dodge stamina 2023 2024
+10 results
+
+Web search: AI pixel art generator sprites game characters Midjourney Stable Diffusion ControlNet 2024
+10 results
+
+Web search: kennedyvnak unity-metroidvania GitHub features combat system
+10 results
+
+Web search: Louaios Sekiro-Like-Combat-and-Traversal-System Unity 2D parry dodge GitHub
+10 results
+
+Tengo todo lo que necesito. Respondo las dos partes:
+
+PARTE 1 — Templates de jugabilidad en GitHub
+Blasphemous no tiene código público (es comercial). Pero encontré las mejores opciones reales:
+
+Los 3 repos que les convienen combinar
+1. kennedyvnak/unity-metroidvania — LA BASE 👉 https://github.com/kennedyvnak/unity-metroidvania
+
+Es el más cercano a lo que necesitan. Tiene:
+
+Player controller con state machine (exactamente como Blasphemous lo implementa)
+New Input System de Unity (el moderno, no el legacy)
+URP activado (necesario para pixel art con shaders)
+Unity DOTS para performance
+Settings management, audio, localization
+Es un juego completo open source, no solo un tutorial. Pueden clonarlo, borrar los assets de arte y reemplazar con los propios.
+
+2. Louaios/Sekiro-Like-Combat-and-Traversal-System — EL COMBATE 👉 https://github.com/Louaios/Sekiro-Like-Combat-and-Traversal-System
+
+Tiene implementado específicamente:
+
+Parry con timing preciso (igual a Blasphemous/Sekiro)
+Dodge con frames de invencibilidad
+Movimiento fluido con traversal
+El combate de Blasphemous es básicamente Sekiro en 2D — timing de parry, postura, peso. Este repo es el más cercano a eso.
+
+3. SunnyValleyStudio/Melee-combat-system-Unity-2D — TUTORIAL DE COMBATE 2D 👉 https://github.com/SunnyValleyStudio/Melee-combat-system-Unity-2D
+
+Más básico pero bien comentado y documentado — ideal para entender cómo funciona el sistema antes de modificarlo.
+
+Estrategia recomendada (en orden)
+
+Semana 1-2:   Clonar kennedyvnak/unity-metroidvania
+              → Explorar la estructura, entender la state machine del player
+              → Reemplazar los sprites placeholder con uno propio simple
+
+Semana 3-4:   Integrar el sistema de parry/dodge del repo de Louaios
+              → Adaptar de 3D a 2D si hace falta
+              → Testear el feeling del combate con sprites rectangulares
+
+Semana 5+:    Meter los sprites generados con IA
+              → En este punto ya tienen la jugabilidad andando
+PARTE 2 — IA para generar los sprites
+La herramienta correcta: ComfyUI + Stable Diffusion
+La mejor opción para sprites de juegos con control total es ComfyUI con modelos especializados en pixel art. Esto corre local en la Mac (o en la nube si la GPU es débil).
+
+Por qué ComfyUI y no Midjourney:
+
+Control total sobre tamaño exacto de canvas (32×48, 96×96, etc.)
+Consistencia de personaje — podés hacer múltiples poses del mismo personaje manteniendo la identidad
+Gratis y corre local
+Exporta PNG con fondo transparente directamente
+Stack de IA para sprites
+
+ComfyUI (interfaz visual de workflows)
+  └── Stable Diffusion 1.5 (modelo base)
+      └── PixelArt LoRA (ajusta el estilo a pixel art)
+          └── ControlNet (controla la pose/silueta)
+              └── Onodofthenorth/SD_PixelArt_SpriteSheet_Generator
+                  (modelo en HuggingFace, entrenado específicamente para sprites)
+Prompts — Cómo pedirle exactamente lo que necesitan
+Acá está la fórmula que deben seguir para cada personaje. Basado en el GDD que armamos:
+
+
+FÓRMULA DEL PROMPT:
+[estilo pixel art] + [tamaño] + [personaje] + [pose] + [paleta] + [fondo]
+Ejemplos concretos para el juego:
+
+
+PROTAGONISTA — IDLE HUMANO (fase 1):
+"pixel art sprite, 32x48 canvas, male warrior, standing idle pose,
+silver-gray long hair, tattered white robe, no armor, no wings,
+glowing red eyes, pale skin with faint cracks on skin,
+color palette: #D0D0E0 #CC1830 #F0F0FF #0A0A14,
+transparent background, side view, dark fantasy game style,
+blasphemous game art style, high detail"
+
+---
+
+IBLIS — BOSS DRAGÓN-HUMANOIDE:
+"pixel art sprite, 96x96 canvas, demon king boss, humanoid dragon body,
+massive fire wings spread wide, lava skin texture with orange glowing cracks,
+horns like volcanic rock, white silver hair at center, halo ring above head,
+color palette: #FF6800 #CC2200 #E85A00 #080408 #F5F5FF,
+transparent background, front-facing battle pose,
+blasphemous game boss art style, epic scale, high detail"
+
+---
+
+METATRÓN — FORMA VERDADERA:
+"pixel art sprite, 160x160 canvas, final boss angel, massive dark wings,
+ornate black armor with golden sacred geometry patterns, glowing golden halo,
+white eyes with no pupils, dark tentacles emerging from base,
+red glowing eye orbs on tentacles, asymmetric chaotic design,
+color palette: #3A0060 #FFE880 #0A0A14 #CC2200 #F8F8FF,
+transparent background, front-facing menacing pose,
+bloodborne cosmic horror meets pixel art style"
+Herramientas online si no quieren instalar ComfyUI local
+Herramienta	Qué hace	Costo	Link
+sprite-ai.art	Sprite sheets desde texto	Free tier	sprite-ai.art
+Leonardo.AI	Alta calidad, más control	Free (150 créditos/día)	leonardo.ai
+Itch.io pixel art AI tools	Varios generadores gratuitos	Free	itch.io
+Ideogram	Excelente para personajes complejos	Free tier	ideogram.ai
+El workflow real para el juego
+
+1. CONCEPTO
+   → Usan el GDD Visual que armamos como guía
+   → Definen la pose específica que necesitan (idle, attack, death)
+
+2. GENERACIÓN
+   → ComfyUI o Leonardo.AI con el prompt del personaje
+   → Piden 4-8 variaciones, eligen la mejor
+
+3. REFINAMIENTO en Aseprite
+   → La IA da un 70-80% del trabajo
+   → En Aseprite ajustan: limpian bordes, corrigen la paleta,
+     agregan detalles de pixel art que la IA no puede hacer perfectos
+   → Esto toma 30-60 min por sprite vs. 4-6h desde cero
+
+4. ANIMACIÓN
+   → Con el sprite base listo, animan frame a frame en Aseprite
+   → La IA no anima (todavía) — eso es manual
+
+5. EXPORT a Unity
+   → PNG Sprite Sheet → Unity Animator
+El prompts más importantes que hay que dominar
+Tres palabras que transforman la calidad del resultado con estos personajes:
+
+blasphemous game art style — ancla el estilo al juego referencia
+transparent background — fondo transparente, listo para Unity
+color palette: #HEX #HEX #HEX — fuerza los colores del GDD
+El flujo es: IA genera la forma y el concepto → Aseprite pule y anima → Unity integra. Ninguna parte del trabajo desaparece, pero la parte más lenta (dibujar desde cero) se reduce drásticamente.
